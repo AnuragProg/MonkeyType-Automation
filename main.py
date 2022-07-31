@@ -123,6 +123,7 @@ class MonkeyType:
             sleep(1)
             punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
             punctuation_toggle_button.click()
+            sleep(1)
             print("Clicked Punctuation")
 
         # check numbers option
@@ -130,6 +131,7 @@ class MonkeyType:
             sleep(1)
             numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
             numbers_toggle_button.click()
+            sleep(1)
             print("Clicked Numbers")
 
     
@@ -169,14 +171,16 @@ class MonkeyType:
         if punctuation:
             sleep(1)
             punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
-            self.chrome_driver.execute_script("arguments[0].setAttribute('class', 'textButton toggleButton active')", punctuation_toggle_button)
+            punctuation_toggle_button.click()
+            sleep(1)
             print("Clicked Punctuation")
 
         # check numbers option
         if numbers:
             sleep(1)
             numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
-            self.chrome_driver.execute_script("arguments[0].setAttribute('class', 'textButton toggleButton active')", numbers_toggle_button)
+            numbers_toggle_button.click()
+            sleep(1)
             print("Clicked Numbers")
     
 
@@ -210,6 +214,7 @@ class MonkeyType:
         sleep(2)
         amount_of_quotes_button = self.chrome_driver.find_element(By.XPATH, clickable_choice[choice])
         amount_of_quotes_button.click()
+        sleep(1)
 
 
     def fetch_word_and_send_keys(self):
