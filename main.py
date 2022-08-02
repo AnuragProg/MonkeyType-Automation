@@ -86,6 +86,52 @@ class MonkeyType:
         finally:
             print("OutOfFocusWarning Handled Successfully")
     
+    def handle_punctuation_and_numbers_button(self, punctuation:bool, numbers:bool):
+        # check punctuation option
+        if punctuation:
+            sleep(1)
+            try:
+                self.chrome_driver.find_element(By.XPATH, "//div[@class='textButton toggleButton active' and text()='punctuation']")
+                print("Punctuation Button already selected")
+            except NoSuchElementException:
+                punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
+                punctuation_toggle_button.click()
+                sleep(1)
+                print("Selected Punctuation")
+        else:
+            sleep(1)
+            try:
+                self.chrome_driver.find_element(By.XPATH, "//div[@class='textButton toggleButton' and text()='punctuation']")
+                print("Punctuation Button already Disselected")
+            except NoSuchElementException:
+                punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
+                punctuation_toggle_button.click()
+                sleep(1)
+                print("Disselected Punctuation")
+
+
+        # check numbers option
+        if numbers:
+            sleep(1)
+            try:
+                self.chrome_driver.find_element(By.XPATH, "//div[@class='textButton toggleButton active' and text()='numbers']")
+                print("Number Button already Selected")
+            except NoSuchElementException:
+                numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
+                numbers_toggle_button.click()
+                sleep(1)
+                print("Selected Numbers")
+        else:
+            sleep(1)
+            try:
+                self.chrome_driver.find_element(By.XPATH, "//div[@class='textButton toggleButton' and text()='numbers']")
+                print("Numbers Button already Disselected")
+            except NoSuchElementException:
+                numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
+                numbers_toggle_button.click()
+                sleep(1)
+                print("Disselected Numbers")
+
 
     def set_time_option(self, time: int = 60, punctuation: bool = False, numbers: bool = False):
         '''
@@ -118,22 +164,7 @@ class MonkeyType:
         amount_of_time_button = self.chrome_driver.find_element(By.XPATH, clickable_time[time])
         amount_of_time_button.click()
 
-        # check punctuation option
-        if punctuation:
-            sleep(1)
-            punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
-            punctuation_toggle_button.click()
-            sleep(1)
-            print("Clicked Punctuation")
-
-        # check numbers option
-        if numbers:
-            sleep(1)
-            numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
-            numbers_toggle_button.click()
-            sleep(1)
-            print("Clicked Numbers")
-
+        self.handle_punctuation_and_numbers_button(punctuation=punctuation, numbers=numbers)
     
     def set_words_option(self, no_of_words: int = 50, punctuation: bool = False, numbers: bool = False):
         '''
@@ -165,24 +196,7 @@ class MonkeyType:
         amount_of_words_button = self.chrome_driver.find_element(By.XPATH, clickable_word_count[no_of_words])
         amount_of_words_button.click()
         
-
-
-        # check punctuation option
-        if punctuation:
-            sleep(1)
-            punctuation_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='punctuation']")
-            punctuation_toggle_button.click()
-            sleep(1)
-            print("Clicked Punctuation")
-
-        # check numbers option
-        if numbers:
-            sleep(1)
-            numbers_toggle_button = self.chrome_driver.find_element(By.XPATH, "//div[contains(@class,'textButton toggleButton') and text()='numbers']")
-            numbers_toggle_button.click()
-            sleep(1)
-            print("Clicked Numbers")
-    
+        self.handle_punctuation_and_numbers_button(punctuation=punctuation, numbers=numbers)
 
     def set_quote_option(self, choice: str):
         '''
@@ -230,14 +244,14 @@ class MonkeyType:
                 self.chrome_driver.find_element(By.ID, "wordsInput").send_keys("".join(letters) + " ")
                 
                 
-            except NoSuchElementException as exception:
+            except NoSuchElementException:
                 break
 
-            except ElementNotInteractableException as exception:
+            except ElementNotInteractableException:
                 break
 
-            except StaleElementReferenceException as exception:
-                pass
+            except StaleElementReferenceException:
+                break
         print("All words sent Successfully")
 
 if __name__ == '__main__':
